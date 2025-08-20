@@ -461,11 +461,12 @@ class TableOfContents
 
 			// mPDF 5.6.19
 			$html = '<div class="mpdf_toc" id="mpdf_toc_' . $toc_id . '">';
+
 			foreach ($this->_toc as $t) {
 				if ($t['toc_id'] === '_mpdf_all' || $t['toc_id'] === $toc_id) {
 					$html .= '<div class="mpdf_toc_level_' . $t['l'] . '">';
 					if ($TOCuseLinking) {
-						$html .= '<a class="mpdf_toc_a" href="#__mpdfinternallink_' . $t['link'] . '">';
+						$html .= '<a class="mpdf_toc_a mpdf_toc_a"  href="#__mpdfinternallink_' . $t['link'] . '">';
 					}
 					$html .= '<span class="mpdf_toc_t_level_' . $t['l'] . '">' . $t['t'] . '</span>';
 					if ($TOCuseLinking) {
@@ -488,8 +489,7 @@ class TableOfContents
 				}
 			}
 			$html .= '</div>';
-
-						/**
+			/**
 	    	* publish comparison
 	    	* Branch : [AR-70] [AS] Publish Comparison
 	    	**/
@@ -497,9 +497,9 @@ class TableOfContents
 			$removed_assets = base_assets("archifyspec/")."img/deleted_indicator_comparison.png";
 			$updated_assets = base_assets("archifyspec/")."img/updated_indicator_comparison.png";
 
-			$html = str_replace("TOC_ADDED_SECTION", "abc", $html);
-		  $html = str_replace("TOC_DELETED_SECTION", "efg", $html);
-		  $html = str_replace("TOC_UPDATED_SECTION", "hij", $html);
+			$html = str_replace("TOC_ADDED_SECTION", "<img style=\"margin-left: 4px; vertical-align: middle;\" src=\"$added_assets\" alt=\"icon download\" height=\"16\">", $html);
+		  $html = str_replace("TOC_DELETED_SECTION", "<img style=\"margin-left: 4px; vertical-align: middle;\" src=\"$removed_assets\" alt=\"icon download\" height=\"16\">", $html);
+		  $html = str_replace("TOC_UPDATED_SECTION", "<img style=\"margin-left: 4px; vertical-align: middle;\" src=\"$updated_assets\" alt=\"icon download\" height=\"16\">", $html);
 
 			$html = str_replace("LINE_ADDED_SECTION", "", $html);
 			$html = str_replace("LINE_DELETED_SECTION", "", $html);
@@ -508,6 +508,7 @@ class TableOfContents
 	    	* end of publish comparison
 	    	* Branch : [AR-70] [AS] Publish Comparison
 	    	**/
+
 
 			$this->mpdf->WriteHTML($html);
 
