@@ -488,6 +488,27 @@ class TableOfContents
 				}
 			}
 			$html .= '</div>';
+
+						/**
+	    	* publish comparison
+	    	* Branch : [AR-70] [AS] Publish Comparison
+	    	**/
+			$added_assets = base_assets("archifyspec/")."img/added_indicator_comparison.png";
+			$removed_assets = base_assets("archifyspec/")."img/deleted_indicator_comparison.png";
+			$updated_assets = base_assets("archifyspec/")."img/updated_indicator_comparison.png";
+
+			$html = str_replace("TOC_ADDED_SECTION", "abc", $html);
+		  $html = str_replace("TOC_DELETED_SECTION", "efg", $html);
+		  $html = str_replace("TOC_UPDATED_SECTION", "hij", $html);
+
+			$html = str_replace("LINE_ADDED_SECTION", "", $html);
+			$html = str_replace("LINE_DELETED_SECTION", "", $html);
+			$html = str_replace("LINE_UPDATED_SECTION", "", $html);
+			/**
+	    	* end of publish comparison
+	    	* Branch : [AR-70] [AS] Publish Comparison
+	    	**/
+
 			$this->mpdf->WriteHTML($html);
 
 			if (isset($toc_postHTML) && $toc_postHTML) {
