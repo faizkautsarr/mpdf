@@ -1011,7 +1011,11 @@ abstract class BlockTag extends Tag
 					$objattr = [];
 					$objattr['type'] = 'bookmark';
 					$objattr['bklevel'] = $this->mpdf->h2bookmarks[$tag];
-					$objattr['CONTENT'] = $content;
+					$objattr['CONTENT'] = preg_replace(
+						'/TOC_(DELETED|ADDED|UPDATED)_SECTION/',
+    				'',
+						$content
+					);
 					$e = Mpdf::OBJECT_IDENTIFIER . "type=toc,objattr=" . serialize($objattr) . Mpdf::OBJECT_IDENTIFIER;
 					array_unshift($this->mpdf->textbuffer, [$e]);
 				}
